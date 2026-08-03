@@ -18,7 +18,7 @@ RUN apk --no-cache add \
 #RUN pip3 install pyyaml semver --upgrade 
 
 # DESIRED_VERSION is the helm version to install
-ENV DESIRED_VERSION v3.5.0
+ENV DESIRED_VERSION v4.2.3
 RUN mkdir -p $HOME/.helm && export HELM_HOME="$HOME/.helm" && curl -L https://git.io/get_helm.sh | /bin/bash
 
 # GET KUBECTL
@@ -26,19 +26,14 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin
 
-# GET ARGOCD CLI
-RUN curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/download/v2.9.3/argocd-linux-amd64
-RUN chmod +x argocd-linux-amd64
-RUN mv ./argocd-linux-amd64 /usr/local/bin/argocd
-
 # GET CLUSTERCTL CLI
-RUN curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.6.1/clusterctl-linux-amd64 -o clusterctl
+RUN curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.13.4/clusterctl-linux-amd64 -o clusterctl
 RUN chmod +x clusterctl
 RUN mv ./clusterctl /usr/local/bin/clusterctl
 
 # GET GITHUB CLI
-RUN curl -L -o gh-cli.tar.gz https://github.com/cli/cli/releases/download/v2.42.1/gh_2.42.1_linux_amd64.tar.gz
-RUN tar -xf gh-cli.tar.gz && mv ./gh_2.42.1_linux_amd64/bin/gh /usr/local/bin/gh
+RUN curl -L -o gh-cli.tar.gz https://github.com/cli/cli/releases/download/v2.97.0/gh_2.97.0_linux_amd64.tar.gz
+RUN tar -xf gh-cli.tar.gz && mv ./gh_2.97.0_linux_amd64/bin/gh /usr/local/bin/gh
 RUN chmod +x /usr/local/bin/gh
 RUN rm gh-cli.tar.gz && rm -rf ./gh_2.42.1_linux_amd64
 
